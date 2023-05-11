@@ -19,7 +19,11 @@
 
     <main>
         <h1>ehilà</h1>
-        
+        <div class="container">
+            @foreach ($treni as $treno)
+              {{$treno->azienda}} - {{$treno->codice_treno}}, {{$treno->stazione_di_partenza}} - {{$treno->stazione_di_arrivo}}, {{$treno->orario_di_partenza}}; <br>
+            @endforeach
+        </div>
     </main>
 
 </body>
