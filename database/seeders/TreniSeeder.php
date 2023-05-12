@@ -14,37 +14,20 @@ class TreniSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(Faker $faker)
     {
-        $altriTreni = [
-            [
-                'azienda' => 'EduaLines',
-                'stazione_di_partenza' => 'termoli',
-                'stazione_di_arrivo' => 'monopoli',
-                'codice_treno' => 1309,
-                'numero_carrozze' => 6,
-                'in_orario' => true,
-                'cancellato' => false,
-            ],
-            [
-                'azienda' => 'Ferrovischie',
-                'stazione_di_partenza' => 'carrapipi',
-                'stazione_di_arrivo' => 'biancavilla',
-                'codice_treno' => 9608,
-                'numero_carrozze' => 9,
-                'in_orario' => false,
-                'cancellato' => true,
-            ],
-        ];
-        foreach ($altriTreni as $treNuovo) {
+        
+        for ($i = 0; $i < 10; $i++) {
             $treno = new Train();
-            $treno->azienda = $treNuovo['azienda'];
-            $treno->stazione_di_partenza = $treNuovo['stazione_di_partenza'];
-            $treno->stazione_di_arrivo = $treNuovo['stazione_di_arrivo'];
-            $treno->codice_treno = $treNuovo['codice_treno'];
-            $treno->numero_carrozze = $treNuovo['numero_carrozze'];
-            $treno->in_orario = $treNuovo['in_orario'];
-            $treno->cancellato = $treNuovo['cancellato'];
+            $treno->azienda = $faker -> words(2, true);
+            $treno->stazione_di_partenza = $faker -> city();
+            $treno->stazione_di_arrivo = $faker -> city();
+            $treno->orario_di_partenza = $faker -> datetime();
+            $treno->orario_di_arrivo = $faker -> datetime();
+            $treno->codice_treno = $faker -> randomNumber(4, true);
+            $treno->numero_carrozze = $faker -> randomDigitNotNull();
+            $treno->in_orario = $faker -> boolean();
+            $treno->cancellato = $faker -> boolean();
             $treno->save();
         }
     }
