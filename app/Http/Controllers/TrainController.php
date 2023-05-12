@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 class TrainController extends Controller
 {
     public function index() {
-        $treni = Train::all()->where('orario_di_partenza', ">", now());
+        $treni = Train::all();
+        // dd($treni);
         return view("home", compact("treni"));
     }
 }

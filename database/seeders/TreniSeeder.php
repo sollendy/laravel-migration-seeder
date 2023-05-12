@@ -6,7 +6,6 @@ use App\Models\Train;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Faker\Generator as Faker;
-
 class TreniSeeder extends Seeder
 {
     /**
@@ -16,19 +15,26 @@ class TreniSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        
-        for ($i = 0; $i < 10; $i++) {
+         $foglioTreni = fopen(__DIR__ . "/../trains.csv", "r");
+
+         $treniCSV = fgetcsv($foglioTreni);
+         $treniCSV = fgetcsv($foglioTreni);
+        //  dd($foglioTreni);
+
+
+        while ($treniCSV != false) {
             $treno = new Train();
-            $treno->azienda = $faker -> words(2, true);
-            $treno->stazione_di_partenza = $faker -> city();
-            $treno->stazione_di_arrivo = $faker -> city();
-            $treno->orario_di_partenza = $faker -> datetime();
-            $treno->orario_di_arrivo = $faker -> datetime();
-            $treno->codice_treno = $faker -> randomNumber(4, true);
-            $treno->numero_carrozze = $faker -> randomDigitNotNull();
-            $treno->in_orario = $faker -> boolean();
-            $treno->cancellato = $faker -> boolean();
+            $treno->azienda = $treniCSV[0];
+            $treno->stazione_di_partenza = $treniCSV[1];
+            $treno->stazione_di_arrivo = $treniCSV[2];
+            $treno->orario_di_partenza = $treniCSV[3];
+            $treno->orario_di_arrivo = $treniCSV[4];
+            $treno->codice_treno = $treniCSV[5];
+            $treno->numero_carrozze = $treniCSV[6];
+            $treno->in_orario = $treniCSV[7];
+            $treno->cancellato = $treniCSV[8];
             $treno->save();
+            $treniCSV = fgetcsv($foglioTreni);
         }
     }
 }
